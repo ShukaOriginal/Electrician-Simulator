@@ -58,7 +58,7 @@ namespace Electric_simulator.Model
 
                         element.growthRate[0, i] = rnd.Next((int)Math.Round(element.growthRate[0, i - 1] * element.consumptionRate), (int)Math.Round(Math.Max(element.growthRate[0, i - 1] * (element.consumptionRate + 1), element.maxConsumption)));
 
-                        var a = "ГИБОН ПОГАНЫЙ";
+                        //var a = "ГИБОН ПОГАНЫЙ";
 
                         TotalConsumption = TotalConsumption - element.consumption;
                         element.consumption = element.growthRate[0, 0];
