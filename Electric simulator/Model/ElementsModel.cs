@@ -13,6 +13,8 @@ namespace Electric_simulator.Model
 
         public double production { get; set; } = 0;
 
+        public double targetProduction { get; set; } = 0;
+
         public double[,] growthRate { get; set; } = new double[,] { { }, { } }; //коэфицент роста мощности в 1 тик (Production + GrowRate)
 
         public double consumption { get; set; } = 0;//потребление
@@ -99,6 +101,7 @@ namespace Electric_simulator.Model
                 maxConsumption = 50,
                 consumptionRate = 0.5,
                 intervalRefreashTime = new TimeSpan(0, 30, 0),
+                refreashTime = new TimeSpan(0, 0, 0),
                 standartPower = 37,
                 generator = false,
                 id = 0,
@@ -126,6 +129,7 @@ namespace Electric_simulator.Model
                         type = type,
                         maxProduction = powerElements,
                         production = 0,
+                        targetProduction = 0,
                         growthRate = growthRate,
                         id = id,
                     });
@@ -134,9 +138,9 @@ namespace Electric_simulator.Model
             }
             else
             {
+                Random rnd = new Random();
                 for (int i = 1; i <= numberElement; i++)
                 {
-                    Random rnd = new Random();
                     int minutes = rnd.Next(0, 60);
 
                     var a = CreateGrowthRate(growthRate, powerElements, consumptionRate);
@@ -151,7 +155,7 @@ namespace Electric_simulator.Model
                         growthRate = a,
                         id = id,
                         intervalRefreashTime = intervalRefreashTime,
-                        refreashTime = new TimeSpan(0, minutes, 0)
+                        refreashTime = new TimeSpan(TimeModel.TimeInSimulation.Hours, TimeModel.TimeInSimulation.Minutes + minutes, TimeModel.TimeInSimulation.Seconds)
                     });
                     id++;
                 }
@@ -173,8 +177,8 @@ namespace Electric_simulator.Model
                 else
                 {
                     //(int)Math.Round()
-                    standartGrowthRate[0, i] = rnd.Next((int)Math.Round(standartGrowthRate[0, i - 1] * consumptionRate),
-                        (int)Math.Round(standartGrowthRate[0, i - 1] * (consumptionRate + 1), maxConsumption));
+                    standartGrowthRate[0, i] = rnd.Next((int)Math.Round(standartGrowthRate[0, i - 1] - (standartGrowthRate[0, i - 1] * consumptionRate)),
+                        (int)Math.Round((standartGrowthRate[0, i - 1] * (consumptionRate + 1)) - ((standartGrowthRate[0, i - 1] * (consumptionRate + 1)) - maxConsumption)));
                 }
             }
 
