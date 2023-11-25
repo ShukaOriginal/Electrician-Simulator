@@ -67,7 +67,7 @@ namespace Electric_simulator.Model
                         element.refreashTime = TimeModel.TimeInSimulation + element.intervalRefreashTime;
                     }
                 }
-                //AAAAAAAAAAAAAAAAAAAAA
+                //ББББББББББББББББББББББ
             }
         }
     }
