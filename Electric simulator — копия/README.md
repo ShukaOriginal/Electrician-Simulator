@@ -1,3 +1,2 @@
 ﻿# Electrician-Simulator
-# Electrician-Simulator
-//saewqe
+//Проект по созданию упрощённой симуляции энергосети города "N".
